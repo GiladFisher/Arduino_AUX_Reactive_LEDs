@@ -1,6 +1,6 @@
 #include <FastLED.h>
-#define IN A7
-#define THRSH 700
+#define IN A5
+#define THRSH 6
 #define DATA_PIN 2
 #define CLOCK_PIN 13
 #define NUM_LEDS 20
@@ -43,26 +43,30 @@ void make_dance(){
   for(int i = 0; i < NUM_LEDS; i++){
     leds[i] = cur_color;
     FastLED.show();
-    if (listen() > THRSH){
+    if (listen() > THRSH && i > 4){
       //turn_off();
       col_flag = (col_flag + 1) % 3;
       set_color(i);
+      make_dance();
+      return;
     }
   }
   for(int i = 0; i < NUM_LEDS; i++){
     leds[i] = CRGB::Black;
     FastLED.show(); 
-    delay(10);
+    delay(1);
   }
   col_flag = (col_flag + 1) % 3;
 }
 
 int listen(){
   int vals_mean = 0;
-  for(int i = 0; i < 10; i++){
+  int for_how_long = 4;
+  for(int i = 0; i < for_how_long; i++){
     delay(2);
-    vals_mean = vals_mean + (analogRead(IN) / 10);
+    vals_mean = vals_mean + (analogRead(IN) / for_how_long);
   }
+  Serial.println(vals_mean);
   return vals_mean;
 }
 
@@ -74,17 +78,7 @@ void turn_off(){
 }
 
 void loop() {
-  
-  int vals_mean = 0;
-  for(int i = 0; i < 20; i++){
-    vals_mean = vals_mean + (analogRead(IN) / 20);
-  }
-  if(vals_mean > THRSH){
+  if(listen() > THRSH){
     make_dance();
-  }
-  else{
-    Serial.println(vals_mean);
-    Serial.print("    ");
-    Serial.println(0);
   }
 }
