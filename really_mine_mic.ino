@@ -1,10 +1,11 @@
 #include <FastLED.h>
 #define IN A5
-#define THRSH 2
+#define THRSH 110
 #define DATA_PIN 2
 #define CLOCK_PIN 13
 #define NUM_LEDS 30
-
+#define AMPLIFY 3
+double c = pow(2,AMPLIFY);
 
 CRGB leds[NUM_LEDS];
 //CRGB color_template[3][3] = {{CRGB(255 , 0 , 150 ),CRGB(255 /2 , 0 , 150 /2 ), CRGB(255 /3 , 0 , 150 /3 )}};
@@ -48,7 +49,7 @@ void make_dance(){
   for(int i = 0; i < NUM_LEDS; i++){
     leds[i] = cur_color;
     FastLED.show();
-    if (listen() > THRSH && i > 15){
+    if (listen() > THRSH && i > 20){
       //turn_off();
       col_flag = (col_flag + 1) % to_cycle;
       set_color(i);
@@ -59,7 +60,7 @@ void make_dance(){
   for(int i = 0; i < NUM_LEDS; i++){
     leds[i] = CRGB::Black;
     FastLED.show(); 
-    delay(6);
+    delay(3);
   }
   col_flag = (col_flag + 1) % to_cycle;
 }
@@ -72,8 +73,8 @@ int listen(){
     delay(2);
     vals_mean = vals_mean + (analogRead(IN) / for_how_long);
   }
-  Serial.println(vals_mean);
-  return vals_mean;
+  Serial.println(pow(vals_mean,AMPLIFY));
+  return pow(vals_mean,AMPLIFY);
 }
 
 void turn_off(){
