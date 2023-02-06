@@ -1,11 +1,12 @@
 #include <FastLED.h>
-#define IN A5
-#define THRSH 20000
+#define IN A7
+//#define THRSH 30000
 #define THRSH2 20
 #define DATA_PIN 2
 #define CLOCK_PIN 13
 #define NUM_LEDS 30
-#define AMPLIFY 2
+#define AMPLIFY 1
+long THRSH = 10;
 
 CRGB leds[NUM_LEDS];
 //CRGB color_template[3][3] = {{CRGB(255 , 0 , 150 ),CRGB(255 /2 , 0 , 150 /2 ), CRGB(255 /3 , 0 , 150 /3 )}};
@@ -68,13 +69,14 @@ void make_dance(){
 
 int listen(){
   int vals_mean = 0;
-  //int for_how_long = 8;
-  for(int i = 0; i < 80; i++){
+  int for_how_long = 80;
+  for(int i = 0; i < for_how_long; i++){
     //delay(1);
-    vals_mean = vals_mean + (analogRead(IN));// / for_how_long);
-    if(pow(vals_mean,AMPLIFY) > THRSH){
-      return pow(vals_mean,AMPLIFY);
-    }
+    vals_mean = vals_mean + (analogRead(IN)/ for_how_long);// / for_how_long);
+    // if(pow(vals_mean,AMPLIFY) > THRSH){
+    //   Serial.println(pow(vals_mean,AMPLIFY));
+    //   return pow(vals_mean,AMPLIFY);
+    // }
   }
   Serial.println(pow(vals_mean,AMPLIFY));
   return pow(vals_mean,AMPLIFY);
@@ -101,5 +103,12 @@ void loop() {
     make_dance();
     //shiftColorOfAll(); delay(5);
   }
+  else if(leds[0] != CRGB( 0, 0, 0)){
+    for(int i = 0; i < NUM_LEDS; i++){
+      leds[i] = CRGB::Black;
+      FastLED.show(); 
+    }
+  }
+   
 
 }
