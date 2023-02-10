@@ -6,7 +6,12 @@
 #define CLOCK_PIN 13
 #define NUM_LEDS 30
 #define AMPLIFY 1
-long THRSH = 10;
+int THRSH = 15;
+
+
+int prev_listen = 0;
+
+int new_listen = 0;
 
 CRGB leds[NUM_LEDS];
 //CRGB color_template[3][3] = {{CRGB(255 , 0 , 150 ),CRGB(255 /2 , 0 , 150 /2 ), CRGB(255 /3 , 0 , 150 /3 )}};
@@ -47,16 +52,26 @@ void make_dance_single(){
 
 void make_dance(){
   cur_color = color_template[col_flag];
-  for(int i = 0; i < NUM_LEDS; i++){
+  for(int i = 0; i < NUM_LEDS - 1; i++){
     leds[i] = cur_color;
+    leds[i+1] = CRGB::Black;
     FastLED.show();
-    if (listen() > THRSH && i > 20){
-      //turn_off();
+    
+    new_listen = listen();
+    if(new_listen - prev_listen > THRSH && i > 20){
+      prev_listen = new_listen;
       col_flag = (col_flag + 1) % to_cycle;
       set_color(i);
       make_dance();
       return;
     }
+    prev_listen = new_listen;
+    // if (listen() > THRSH && i > 20){
+    //   col_flag = (col_flag + 1) % to_cycle;
+    //   set_color(i);
+    //   make_dance();
+    //   return;
+    // }
   }
   for(int i = 0; i < NUM_LEDS; i++){
     leds[i] = CRGB::Black;
@@ -99,15 +114,20 @@ void shiftColorOfAll(){
 }
 
 void loop() {
-  if(listen() > THRSH){
+  new_listen = listen();
+  if(new_listen - prev_listen > THRSH){
+    prev_listen = new_listen;
     make_dance();
     //shiftColorOfAll(); delay(5);
   }
-  else if(leds[0] != CRGB( 0, 0, 0)){
+  else if(leds[0] != CRGB( 0, 0, 0)){// if the leds didnt turn of last run
     for(int i = 0; i < NUM_LEDS; i++){
       leds[i] = CRGB::Black;
       FastLED.show(); 
     }
+  }
+  else{
+    prev_listen = new_listen;
   }
    
 
