@@ -16,3 +16,16 @@ An example for an Arduino board:
 As you can see from the AUX schematic above, the basic AUX connector contains 3 separate parts: Ground, Left audio, and Right audio.
 It is important to connect the Ground part to a "GND" labled pin on the Arduino board. The other Two lines: Left audio and Right audio; should be connected to an analog pin on the Arduino board. Those pins are usaully labled with the letter A. (Connect the left and right audio parts to the same analog pin)
 
+An example of an addressable LED strip: (the one I'm using)
+
+![0](https://user-images.githubusercontent.com/97436308/219700656-ca91c5d3-d009-4289-9387-325d7530a159.jpg)
+
+This part is a bit more tricky but definitely achievable.
+We need to connect the LED strip to an external power supply as well as to the Arduino board.
+#### Supplying Power:
+- Note that electricity is very dangerous do not attemp anything that you are not sure of 
+First, look at your LED strip to determine what Voltage it requires. My LED strip, for example, requires 12v. Chances are you have a supplier of that voltage lying around from an old router or something but they are not very expensive and relatively easy to find. 
+- Note that it needs to be DC and not AC
+Now all that's left is to connect it to the LEDs. to do this, determine which part of the power supplier cable is the possitive and which is the negative and connect the possitive to the possitive part (in my case it's the part labled "+12v") on the LED strip and the negative part to the part labled "GROUND".
+#### Connecting to the board:
+
