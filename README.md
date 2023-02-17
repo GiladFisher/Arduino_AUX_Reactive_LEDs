@@ -35,10 +35,14 @@ Connect the remaining cable of the LED strip, which shoud be labled "Din" or "D"
 And also connext the "GROUND" cable of the LED strip to one of the "GND" pins on the arduino. This is important for science reasons. 
 
 ### Softwere
-Downoad Arduino IDE: https://www.arduino.cc/en/software
+Downoad Arduino IDE: https://www.arduino.cc/en/software 
+
 Add the FastLED library, here's a good tutorial: https://www.ardu-badge.com/FastLED
+
 And, of course, download the .ino file in this repository.
+
 Now, to make it work, you'll need to change a few parameters according to how you set your LED strip up:
+
 - Make sure that you set the pin constants to the correct pins to which you connected the "DATA" to the LED strip and the Analog pin to the one you connected the AUX output to
 - Look at one of the chips on your LED strip to determine which type it is and write it in the "setup" function.
 For example, in my case, as you can barelly tell by the photo, the type of chip I have is "WS2811"
