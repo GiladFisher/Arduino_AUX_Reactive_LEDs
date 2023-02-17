@@ -24,8 +24,11 @@ This part is a bit more tricky but definitely achievable.
 We need to connect the LED strip to an external power supply as well as to the Arduino board.
 #### Supplying Power:
 - Note that electricity is very dangerous do not attemp anything that you are not sure of 
+
 First, look at your LED strip to determine what Voltage it requires. My LED strip, for example, requires 12v. Chances are you have a supplier of that voltage lying around from an old router or something but they are not very expensive and relatively easy to find. 
+
 - Note that it needs to be DC and not AC
+
 Now all that's left is to connect it to the LEDs. to do this, determine which part of the power supplier cable is the possitive and which is the negative and connect the possitive to the possitive part (in my case it's the part labled "+12v") on the LED strip and the negative part to the part labled "GROUND".
 #### Connecting to the board:
 
