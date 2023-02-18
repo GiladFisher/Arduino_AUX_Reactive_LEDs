@@ -12,7 +12,7 @@ int prev_listen = 0;// will hold the result of the previous call to listen()
 int new_listen = 0;// will hold the new result of listen() 
 
 CRGB leds[NUM_LEDS];
-CRGB color_template[] = {0xC21ED0/*purple*/,0x0000FF/*blue*/,0xFF4216/*red - orange*/,0xFF7F50/*peach - orange*/,0xFFFF00/*yellow*/,0x3FCD00/*warm green*/,0x00D3FF/*cyan*/};
+CRGB color_template[] = {0xFF00D0/*purple*/,0x0000FF/*blue*/,0xFF1001/*red - orange*/,0xFFA000/*peach - orange*/,0x10FF00/*warm green*/,0x00FFFF/*cyan*/};
 int to_cycle = sizeof(color_template)/sizeof(color_template[0]); // length of array
 
 int col_flag = 0; // will be in range [0, to_cycle - 1] 
@@ -65,9 +65,10 @@ void make_dance(){ // when called, it will make a wave of color while listening 
   }
   for(int i = 0; i < NUM_LEDS; i++){ // turn off the leds with a wave 
     leds[i] = CRGB::Black;
-    FastLED.show(); 
-    delay(3);
+    //FastLED.show(); 
+    //delay(3);
   }
+  FastLED.show(); // new approarch
   col_flag = (col_flag + 1) % to_cycle; // switch color for next time
 }
 
@@ -76,12 +77,7 @@ int listen(){ // will return the mean of for_how_long reads of the aux input tp 
   int vals_mean = 0;
   int for_how_long = 80;
   for(int i = 0; i < for_how_long; i++){
-    //delay(1);
     vals_mean = vals_mean + (analogRead(IN)/ for_how_long);// / for_how_long);
-    // if(pow(vals_mean,AMPLIFY) > THRSH){
-    //   Serial.println(pow(vals_mean,AMPLIFY));
-    //   return pow(vals_mean,AMPLIFY);
-    // }
   }
   Serial.println(pow(vals_mean,AMPLIFY));
   return pow(vals_mean,AMPLIFY);
@@ -108,7 +104,6 @@ void loop() {
   if(new_listen - prev_listen > THRSH){
     prev_listen = new_listen;
     make_dance();
-    //shiftColorOfAll(); delay(5);
   }
   else if(leds[0] != CRGB( 0, 0, 0)){// if the leds didnt turn of last run
     for(int i = 0; i < NUM_LEDS; i++){
