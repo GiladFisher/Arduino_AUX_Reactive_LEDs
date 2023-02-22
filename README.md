@@ -47,3 +47,10 @@ Now, to make it work, you'll need to change a few parameters according to how yo
 - Look at one of the chips on your LED strip to determine which type it is and write it in the "setup" function.
 For example, in my case, as you can barelly tell by the photo, the type of chip I have is "WS2811"
 - You will also need to find out the order of colors the LED strip reads. It can be "RGB" or "GRB" ... In my case it's "BRG". The only way to find this out for sure is trial and error.
+
+### Troubleshooting
+If you're using Windows 10 you'll probably have to install these drivers in order to program Arduino Nano: [Drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all)
+
+If the input from your AUX cable isn't solid 0 when not playing music, try connecting the Arduino power supply to the same system to which the AUX is coneccted.
+Generally speaking, in my opinion, the best way to set this up is to connect the AUX and Arduino to a TV streamer. Those often send audio signals to both AUX and HDMI ports at the same time, making it ideal for this project. You also use one of [these](https://www.amazon.com/s?k=aux+splitter&crid=1KVFVALH875A5&sprefix=aux+splitter+%2Caps%2C215&ref=nb_sb_noss_2)
+
