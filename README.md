@@ -54,3 +54,4 @@ If you're using Windows 10 you'll probably have to install these drivers in orde
 If the input from your AUX cable isn't solid 0 when not playing music, try connecting the Arduino power supply to the same system to which the AUX is coneccted.
 Generally speaking, in my opinion, the best way to set this up is to connect the AUX and Arduino to a TV streamer. Those often send audio signals to both AUX and HDMI ports at the same time, making it ideal for this project. You also use one of [these](https://www.amazon.com/s?k=aux+splitter&crid=1KVFVALH875A5&sprefix=aux+splitter+%2Caps%2C215&ref=nb_sb_noss_2)
 
+If you run into any other problems you can contact me at giladfisher13@gmail.com
